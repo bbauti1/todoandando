@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Crear Comunicado para Responsables</title>
+</head>
+<body>
+    <h1>Crear Comunicado para Responsables de Estudiantes</h1>
+    <% if (estudiantes.length > 0) { %>
+        <form action="/enviar-comunicado-responsables/<%= estudiantes[0]._id %>" method="POST">
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" name="titulo" required>
+
+            <label for="info">Información:</label>
+            <textarea id="info" name="info" required></textarea>
+
+            <label for="estudiante">Selecciona un estudiante:</label>
+            <select id="estudiante" name="estudiante" required>
+                <% estudiantes.forEach(function(estudiante) { %>
+                    <option value="<%= estudiante._id %>">
+                        <%= estudiante.nombre %> <%= estudiante.apellido %> - <%= estudiante.cursoPerteneciente.anio %>º - <%= estudiante.cursoPerteneciente.division %>º
+                    </option>
+                <% }) %>
+            </select>
+
+            <button type="submit">Enviar Comunicado</button>
+        </form>
+    <% } else { %>
+        <p>No hay estudiantes para este curso.</p>
+    <% } %>
+    <a href="/preceptor-dashboard">Volver al Dashboard</a>
+</body>
+</html>
